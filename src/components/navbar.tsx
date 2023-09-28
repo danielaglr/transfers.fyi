@@ -21,7 +21,7 @@ function Navbar() {
               <Link href='/colleges' className='text-gray-500 hover:text-gray-900 font-semibold'>Colleges</Link>
               <Link href='/classes' className='text-gray-500 hover:text-gray-900 font-semibold'>Classes</Link>
             </div>
-            <Link href='/dashboard' className='text-transfers hover:text-white hover:bg-[#00BF78] border-2 border-transfers px-5 py-3 rounded'>Dashboard</Link>
+            <Link href='/dashboard' className='text-transfers hover:text-white hover:bg-transfers border-2 border-transfers hover:border-transfers-dark px-5 py-3 rounded'>Dashboard</Link>
           </div>
         </div>
         <div className='lg:hidden'>
