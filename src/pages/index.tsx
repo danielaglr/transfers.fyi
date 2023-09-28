@@ -72,7 +72,7 @@ function Landing() {
         <div className='flex flex-col justify-center items-center mt-16'>
           <div className='flex flex-col lg:flex-row justify-center items-center'>
             <div className='flex justify-center items-center w-[300px] sm:w-[500px] h-[200px] sm:h-[400px] border-4 border-transfers-dark p-4 rounded-3xl'>
-              <img src='./undraw_list.svg' className='w-full h-full' alt='List Image' />
+              <img src='./undraw-list.svg' className='w-full h-full' alt='List Image' />
             </div>
             <div className='flex justify-center items-center lg:w-3/4 xl:w-1/2 h-full pt-10 lg:pt-0'>
               <div className='flex flex-col justify-center w-full sm:w-4/5 lg:w-3/4 h-2/3 p-2 lg:p-4'>
@@ -95,7 +95,7 @@ function Landing() {
               </div>
             </div>
             <div className='flex justify-center items-center w-[300px] sm:w-[500px] h-[200px] sm:h-[400px] border-4 border-transfers-dark p-4 rounded-3xl'>
-              <img src='./undraw_analysis.svg' className='w-full h-full' alt='List Image' />
+              <img src='./undraw-analysis.svg' className='w-full h-full' alt='List Image' />
             </div>
             <div className='lg:hidden flex justify-center items-center lg:w-3/4 xl:w-1/2 h-full pt-10 lg:pt-0'>
               <div className='flex flex-col justify-center w-full sm:w-4/5 lg:w-3/4 h-2/3 p-2 lg:p-4'>
@@ -109,7 +109,7 @@ function Landing() {
           </div>
           <div className='flex flex-col lg:flex-row justify-center items-center mt-12'>
             <div className='flex justify-center items-center w-[300px] sm:w-[500px] h-[200px] sm:h-[400px] border-4 border-transfers-dark p-4 rounded-3xl'>
-              <img src='./undraw_classes.svg' className='w-full h-full' alt='List Image' />
+              <img src='./undraw-classes.svg' className='w-full h-full' alt='List Image' />
             </div>
             <div className='flex justify-center items-center lg:w-3/4 xl:w-1/2 h-full pt-10 lg:pt-0'>
               <div className='flex flex-col justify-center w-full sm:w-4/5 lg:w-3/4 h-2/3 p-2 lg:p-4'>
