@@ -10,7 +10,7 @@ function SchoolCarousel() {
   };
 
   const SchoolLogo = (props: School) => (
-    <li className='flex items-center h-full text-center ml-16'>
+    <li className='flex items-center h-full text-center ml-16 select-none'>
       <span className={`text-5xl md:text-6xl text-white ${Int.className} font-black`}>{props.schoolName}</span>
     </li>
   );
@@ -52,7 +52,7 @@ function Landing() {
               <h1 className='text-5xl lg:text-6xl font-bold md:font-black mt-4 mb-10'>Welcome to your transfer admissions one-stop shop.</h1>
               <h2 className='text-xl mb-12'>Tired of the lack of transfer student resources? Get up-to-date information on opportunities for transfer students, what classes you need to transfer, and compare your stats with other successful transfers.</h2>
               <div className='mb-12'>
-                <Link href='/' className='text-white hover:text-gray-100 bg-transfers hover:bg-transfers-dark active:bg-transfers-dark px-12 py-3 rounded'>Get started!</Link>
+                <Link href='/signup' className='text-white hover:text-gray-100 bg-transfers hover:bg-transfers-dark active:bg-transfers-dark px-12 py-3 rounded'>Get started!</Link>
               </div>
               <span className='text-sm text-gray-800 mb-10 lg:mb-0'><span className='text-transfers-dark'>1000+</span> Transfer applications submitted!</span>
             </div>
