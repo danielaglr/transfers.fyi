@@ -1,20 +1,15 @@
 import Image from 'next/image';
 import Link from 'next/link';
-import { useAuth } from '@/contexts/UserContext';
-import { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/contexts/UserContext';
 
 function SignUp() {
-  const auth = useAuth();
+  const { signInWithGoogle } = useAuth();
   const router = useRouter();
 
-  function handleSignIn() {
-    auth?.signInWithGoogle();
+  async function handleSignIn() {
+    signInWithGoogle();
   };
-
-  useEffect(() => {
-    if (auth?.user != null) router.push('/dashboard');
-  }, []);
 
   return (
     <div className='flex justify-center items-center h-[calc(100vh_-_100px)]'>
