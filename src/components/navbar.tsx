@@ -12,7 +12,7 @@ function Navbar() {
       <div className='flex flex-row justify-between items-center w-full md:px-6 xl:px-14'>
         <div className='flex flex-row justify-between items-center w-full'>
           <Link href='/' className='flex flex-row items-center pb-1'>
-            <Image src='./logos/transfers-logo.svg' width={48} height={48} alt='Logo' />
+            <Image src='/logos/transfers-logo.svg' width={48} height={48} alt='Logo' />
             <span className='text-3xl text-gray-800 font-bold ml-2'>Transfers.fyi</span>
           </Link>
           <div className='hidden lg:flex lg:flex-1 lg:justify-between lg:items-center ml-10'>
