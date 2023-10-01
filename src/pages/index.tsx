@@ -68,7 +68,7 @@ function Landing() {
       </section>
       <section className='flex flex-col justify-center items-center text-gray-800 bg-white p-8 sm:p-12 py-20'>
         <h1 className='text-5xl md:text-7xl text-center font-bold pt-12'>The best transfer student resource</h1>
-        <p className='max-w-2xl lg:max-w-4xl text-xl text-center my-4'>We're here to help you throughout your transfer journey. Join over <b>1,000</b> transfer students who have submitted more than <b>5,000</b> well-informed applications through Transfers.fyi this year.</p>
+        <p className='max-w-2xl lg:max-w-4xl text-xl text-center my-4'>We&apos;re here to help you throughout your transfer journey. Join over <b>1,000</b> transfer students who have submitted more than <b>5,000</b> well-informed applications through Transfers.fyi this year.</p>
         <div className='flex flex-col justify-center items-center mt-16'>
           <div className='flex flex-col lg:flex-row justify-center items-center'>
             <div className='flex justify-center items-center w-[300px] sm:w-[500px] h-[200px] sm:h-[400px] border-4 border-transfers-dark p-4 rounded-3xl'>
