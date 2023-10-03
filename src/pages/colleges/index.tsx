@@ -2,26 +2,22 @@ import { DocumentData } from 'firebase/firestore';
 import getColleges from '@/helpers/getColleges';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Autocomplete, TextField } from '@mui/material';
+import { Autocomplete, Skeleton, TextField } from '@mui/material';
 import { useState } from 'react';
-import { sb } from '../../../firebase';
-import { getDownloadURL, ref } from 'firebase/storage';
 
 function CollegeCard(props: DocumentData) {
-  const [imageURL, setImageUrl] = useState('');
   const { college } = props;
-
-  const logosRef = ref(sb, 'University Logos/' + college.collegeID + '.png');
-  getDownloadURL(logosRef).then((url) => {
-    setImageUrl(url);
-  });
 
   return (
     <Link href={`/colleges/${college.collegeID}`} className='flex flex-col justify-center items-center min-w-72 h-48 bg-white border border-gray-100 px-2 rounded-xl shadow-sm'>
-      <div className='flex justify-center items-center h-32'>
-        <Image src={imageURL} width={128} height={128}  alt={college.collegeName + ' Logo'} />
-      </div>
-      <span className='text-gray-800 text-center font-medium'>{college.collegeName}</span>
+      {college.collegeLogo === '' ? 
+        <Skeleton variant='rounded' width={128} height={128} />
+      :
+        <div className='flex justify-center items-center h-32'>
+          <Image src={college.collegeLogo} width={128} height={128} alt={college.collegeName + ' Logo'} />
+        </div>
+      }
+      <span className='text-gray-800 text-center font-medium'>{college.collegeName}</span>         
     </Link>
   )
 };
