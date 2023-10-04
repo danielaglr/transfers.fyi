@@ -1,6 +1,6 @@
 import { collection, getDocs } from 'firebase/firestore';
-import { getDownloadURL, ref } from 'firebase/storage';
 import { db, sb } from '../../firebase';
+import getCollegeLogo from './getCollegeLogo';
 import sortDocuments from './sortDocuments';
 
 const COLLEGES_DB_PATH = 'dummy-colleges';
@@ -10,11 +10,9 @@ export default async function getColleges() {
 
   const downloadPromises = querySnapshot.docs.map(async (doc) => {
     const data = doc.data();
+    const logoURL = await getCollegeLogo(data.collegeID);
 
-    const logoRef = ref(sb, 'University Logos/' + data.collegeID + '.png');
-    const url = await getDownloadURL(logoRef);
-
-    return { ...data, collegeLogo: url };
+    return { ...data, collegeLogo: logoURL };
   });
 
   const docData = await Promise.all(downloadPromises);
