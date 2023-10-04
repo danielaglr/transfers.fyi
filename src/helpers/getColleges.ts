@@ -1,4 +1,4 @@
-import { collection, getDocs, DocumentData, QuerySnapshot } from 'firebase/firestore';
+import { collection, getDocs } from 'firebase/firestore';
 import { getDownloadURL, ref } from 'firebase/storage';
 import { db, sb } from '../../firebase';
 import sortDocuments from './sortDocuments';
