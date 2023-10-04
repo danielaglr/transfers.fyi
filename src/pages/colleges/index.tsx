@@ -41,11 +41,15 @@ function Colleges({ colleges }: CollegesProps) {
   };
 
   return (
-    <div className='flex flex-col lg:flex-row justify-between min-h-[calc(100vh_-_100px)] bg-gray-50 pt-10 px-6 lg:p-12'>
+    <div className='flex flex-col lg:flex-row justify-between h-[calc(100vh_-_100px)] bg-gray-50 pt-10 px-6 lg:p-12 overflow-hidden'>
       <div className='flex flex-col lg:max-w-xs xl:max-w-md 2xl:max-w-lg'>
         <h1 className='text-2xl 2xl:text-3xl text-gray-800 text-center lg:text-left font-bold mb-10'>Search or filter for college-specific transfer admission data!</h1>
+        <div className='flex flex-col'>
+          <span className='text-base text-gray-800 font-semibold'>School Type</span>
+
+        </div>
       </div>
-      <div className='flex flex-1 flex-col pt-2 px-4'>
+      <div className='flex flex-1 flex-col pt-2 px-4 overflow-hidden'>
         <Autocomplete 
           disablePortal
           clearOnEscape
@@ -56,9 +60,13 @@ function Colleges({ colleges }: CollegesProps) {
           value={selectedSchool}
           onChange={(event, newVal) => setSelectedSchool(newVal)}
           size='small'
-          sx={{ backgroundColor: '#fff', marginBottom: 2, '& label.Mui-focused': { color: '#00AC6D' }, '& .MuiOutlinedInput-root': { '&.Mui-focused fieldset': { borderColor: '#00BF78' } } }}
+          sx={{ backgroundColor: '#fff', marginBottom: 2, 
+          '& label.Mui-focused': { color: '#00AC6D' }, 
+          '& .MuiOutlinedInput-root': { 
+            '&.Mui-focused fieldset': { borderColor: '#00BF78' } 
+          } }}
         />
-        <div className='grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-3 gap-4'>
+        <div className='grid grid-cols-1 sm:grid-cols-2 2xl:grid-cols-3 gap-4 overflow-y-auto'>
           {handleColleges().map((item, index) => {
             return (
               <CollegeCard key={index} college={item} />
