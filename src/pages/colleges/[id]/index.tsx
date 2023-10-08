@@ -1,15 +1,14 @@
-import { GetServerSidePropsContext } from 'next';
+import { GetStaticPropsContext } from 'next';
 import Image from 'next/image';
 import { DocumentData } from 'firebase/firestore';
 import getCollege from '@/helpers/getCollege';
 import getCollegeAdmissions from '@/helpers/getCollegeAdmissions';
 import formatNumber from '@/util/formatNumber';
+import getColleges from '@/helpers/getColleges';
+import { useEffect, useState } from 'react';
 
-interface TableProps {
-  admissionData: DocumentData[];
-};
 
-function AdmissionsTable(props: TableProps) {
+function AdmissionsTable(props: { admissionData: DocumentData[] }) {
   const { admissionData } = props;
 
   return (
@@ -54,12 +53,22 @@ function AdmissionsTable(props: TableProps) {
 
 
 interface CollegeProps {
-  college: DocumentData,
-  admissionData: DocumentData[]
+  college: DocumentData
 };
 
 function College(props: CollegeProps) {
-  const { college, admissionData } = props;
+  const { college } = props;
+  const [admissionData, setAdmissionData] = useState<DocumentData[]>([]);
+
+  useEffect(() => {
+    async function fetchAdmissions() {
+      const data = await getCollegeAdmissions(college.collegeID);
+
+      setAdmissionData(data);
+    };
+
+    fetchAdmissions();
+  }, []);
 
   return (
     <div className='flex flex-col lg:flex-row justify-center lg:justify-normal items-center w-screen min-h-[calc(100vh_-_100px)] px-10'>
@@ -104,17 +113,29 @@ function College(props: CollegeProps) {
   )
 };
 
-export async function getServerSideProps(context: GetServerSidePropsContext) {
-  const collegeID = context.query.id as string;
+export async function getStaticProps(context: GetStaticPropsContext) {
+  const collegeID = context.params?.id as string;
   const college = await getCollege(collegeID);
-  const admissionData = await getCollegeAdmissions(collegeID);
 
   return {
     props: {
-      college,
-      admissionData
+      college
     }
-  }
+  };
+};
+
+export async function getStaticPaths() {
+  const colleges = await getColleges();
+  const paths = colleges.map(college => {
+    return {
+      params: { id: String(college.collegeID) }
+    };
+  });
+
+  return {
+    paths,
+    fallback: false
+  };
 };
 
 export default College;
