@@ -3,6 +3,55 @@ import Image from 'next/image';
 import { DocumentData } from 'firebase/firestore';
 import getCollege from '@/helpers/getCollege';
 import getCollegeAdmissions from '@/helpers/getCollegeAdmissions';
+import formatNumber from '@/util/formatNumber';
+
+interface TableProps {
+  admissionData: DocumentData[];
+};
+
+function AdmissionsTable(props: TableProps) {
+  const { admissionData } = props;
+
+  return (
+    <div className='md:flex md:justify-center w-screen overflow-x-auto overflow-y-hidden mb-10'>
+      <table className='w-[45rem] lg:w-[52rem]'>
+        <thead className='bg-gray-50'>
+          <tr className='flex justify-evenly items-center w-full h-16 text-xs font-medium uppercase tracking-wider'>
+            <th className='w-1/6'> Class </th>
+            <th className='w-1/5'> Major </th>
+            <th className='w-1/6'> College GPA </th>
+            <th className='w-1/4'> Highschool GPA </th>
+            <th className='w-1/6'> Honors </th>
+            <th className='w-1/6'> Status </th>
+          </tr>
+        </thead>
+        <tbody className='bg-white border border-t-0 border-gray-100 rounded-b-md'>
+          {admissionData.map((row, index) => {
+            let statusStyling;
+
+            if (row.status === 'Accepted') { statusStyling = 'text-green-900 bg-green-100' }
+            else if (row.status === 'Waitlisted') { statusStyling = 'text-blue-900 bg-blue-100' }
+            else if (row.status === 'Rejected') { statusStyling = 'text-red-900 bg-red-100' }
+
+            return (
+              <tr key={index} className='flex justify-evenly items-center w-full h-14 text-sm text-gray-800 text-center text-wrap font-medium leading-5'>
+                <td className='w-1/6'>{row.class}</td>
+                <td className='w-1/5'>{row.major}</td>
+                <td className='w-1/6'>{(Math.round(row.collegeGPA * 100) / 100).toFixed(2)}</td>
+                <td className='w-1/4'>{(Math.round(row.collegeGPA * 100) / 100).toFixed(2)}</td>
+                <td className='w-1/6'>{row.honors ? 'Yes' : 'No'}</td>
+                <td className='w-1/6'>
+                  <span className={`${statusStyling} px-3 py-1 rounded-xl`}>{row.status}</span>
+                </td>
+              </tr>
+            )
+          })}
+        </tbody>
+      </table>
+    </div>
+  )
+};
+
 
 interface CollegeProps {
   college: DocumentData,
@@ -13,8 +62,8 @@ function College(props: CollegeProps) {
   const { college, admissionData } = props;
 
   return (
-    <div className='flex flex-col lg:flex-row items-center min-h-[calc(100vh_-_100px)] overflow-hidden px-10'>
-      <div className='flex flex-col justify-center max-w-lg 2xl:max-w-2xl h-full items-center px-4'>
+    <div className='flex flex-col lg:flex-row justify-center lg:justify-normal items-center w-screen min-h-[calc(100vh_-_100px)] px-10'>
+      <div className='flex flex-col justify-center max-w-lg 2xl:max-w-2xl h-full items-center lg:px-4'>
         <Image 
         src={college.collegeLogo} 
         width={256} 
@@ -22,7 +71,7 @@ function College(props: CollegeProps) {
         className='object-contain object-center' 
         alt={college.collegeName + ' Logo'} 
         />
-        <div className='mt-12'>
+        <div className='my-10'>
           <h1 className='text-3xl text-gray-800 text-center font-semibold'>{college.collegeName || 'College Name'}</h1>
         </div>
         <div className='flex flex-row flex-wrap justify-evenly w-full my-8'>
@@ -36,11 +85,11 @@ function College(props: CollegeProps) {
           </div>
           <div className='text-center lg:px-8 mb-4'>
             <h2 className='text-sm text-transfers-dark font-semibold tracking-widest mb-1'>In-State Tuition</h2>
-            <span className='text-lg text-gray-900 font-medium mb-3'>{college.inStateTuition || '00000'}</span>
+            <span className='text-lg text-gray-900 font-medium mb-3'>{college.inStateTuition ? formatNumber(college.inStateTuition) : '00000'}</span>
           </div>
           <div className='text-center lg:px-8 mb-4'>
             <h2 className='text-sm text-transfers-dark font-semibold tracking-widest mb-1'>Out-of-State Tuition</h2>
-            <span className='text-lg text-gray-900 font-medium mb-3'>{college.outStateTuition || '00000'}</span>
+            <span className='text-lg text-gray-900 font-medium mb-3'>{college.outStateTuition ? formatNumber(college.outStateTuition) : '00000'}</span>
           </div>
           <div className='text-center lg:px-8 mb-4'>
             <h2 className='text-sm text-transfers-dark font-semibold tracking-widest mb-1'>Admission Rate</h2>
@@ -48,33 +97,8 @@ function College(props: CollegeProps) {
           </div>
         </div>
       </div>
-      <div className='flex flex-1 h-full justify-start lg:justify-center items-center overflow-x-auto overflow-y-hidden whitespace-nowrap'>
-        <table className='flex flex-col w-full'>
-          <thead className='w-full h-14 bg-gray-50 rounded-t-md'>
-            <tr className='flex flex-row justify-evenly items-center w-full h-full'>
-              <th className='flex justify-center items-center min-w-[8rem] text-sm text-black text-center font-medium tracking-wider uppercase'>Class</th>
-              <th className='flex justify-center items-center min-w-[8rem] text-sm text-black text-center font-medium tracking-wider uppercase'>Major</th>
-              <th className='flex justify-center items-center min-w-[8rem] text-sm text-black text-center font-medium tracking-wider uppercase'>College GPA</th>
-              <th className='flex justify-center items-center min-w-[10rem] text-sm text-black text-center font-medium tracking-wider uppercase'>Highschool GPA</th>
-              <th className='flex justify-center items-center min-w-[8rem] text-sm text-black text-center font-medium tracking-wider uppercase'>Honors</th>
-              <th className='flex justify-center items-center min-w-[8rem] text-sm text-black text-center font-medium tracking-wider uppercase'>Status</th>
-            </tr>
-          </thead>
-          <tbody className='flex flex-col bg-white border border-gray-50 rounded-b-md'>
-            {admissionData.map((row, index) => {
-              return (
-                <tr key={index} className='flex flex-row justify-evenly items-center w-full h-16 border-t border-gray-100'>
-                  <td className='flex justify-center items-center min-w-[8rem] text-xs text-gray-800 font-medium leading-5'>{row.class}</td>
-                  <td className='flex justify-center items-center min-w-[8rem] text-xs text-gray-800 font-medium leading-5'>{row.major}</td>
-                  <td className='flex justify-center items-center min-w-[8rem] text-xs text-gray-800 font-medium leading-5'>{(Math.round(row.collegeGPA * 100) / 100).toFixed(2)}</td>
-                  <td className='flex justify-center items-center min-w-[10rem] text-xs text-gray-800 font-medium leading-5'>{(Math.round(row.highschoolGPA * 100) / 100).toFixed(2)}</td>
-                  <td className='flex justify-center items-center min-w-[8rem] text-xs text-gray-800 font-medium leading-5'>{row.honors ? 'Yes' : 'No'}</td>
-                  <td className={`flex justify-center items-center min-w-[8rem] text-xs text-gray-800 font-medium leading-5`}>{row.status}</td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </table>
+      <div className='flex lg:flex-1 justify-center items-center lg:w-[60%] lg:h-full'>
+        <AdmissionsTable admissionData={admissionData} />
       </div>
     </div>
   )
