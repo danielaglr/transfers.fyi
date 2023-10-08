@@ -1,7 +1,7 @@
 import { collection, getDocs } from 'firebase/firestore';
 import { db, sb } from '../../firebase';
 import getCollegeLogo from './getCollegeLogo';
-import sortDocuments from './sortDocuments';
+import sortDocuments from '../util/sortDocuments';
 
 const COLLEGES_DB_PATH = 'dummy-colleges';
 
